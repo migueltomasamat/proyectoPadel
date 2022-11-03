@@ -5,19 +5,26 @@
 
     namespace App;
 
+    require "autoload.php";
+
+    use App\Horarios\HorarioDiario;
+    use App\Horarios\HorarioMensual;
     use App\Horarios\Intervalo;
+    use App\Personas\Entrenador;
     use App\Personas\Enums\LadoPreferido;
     use App\Personas\Enums\ManoHabil;
     use App\Personas\Jugador;
     use App\Personas\Persona;
+    use Modelo\Personas\PersonasDAOMySQL;
 
-    include_once("App/Personas/Persona.php");
+
+    /*include_once("App/Personas/Persona.php");
     include_once("App/Personas/Jugador.php");
     include_once("App/Personas/Enums/ManoHabil.php");
     include_once("App/Personas/Enums/LadoPreferido.php");
-    include_once("App/Horarios/Intervalo.php");
+    include_once("App/Horarios/Intervalo.php");*/
 
-    $persona = new Persona('12345678A','Javier','Gonzalez');
+    /*$persona = new Persona('12345678A','Javier','Gonzalez');
 
 //    var_dump($persona);
     echo "<br>";
@@ -61,3 +68,36 @@
     }
 
     echo "<br> Resultado de la búsqueda: ". array_search($intervalo2,$array);
+
+    $entrenadorDeFiguras = new Entrenador("12345678A", "Toni", "Nadal", "Calle Bosquet", "1234567812345678909", "143528456A", 1, 031524);
+
+    $jugador->setEntrenadorAsociado($entrenadorDeFiguras);
+
+    print_r($jugador);*/
+
+    /*$horario= new HorarioDiario(new \DateTime(),25.00,18.00, 75);
+    $horario->generarIntervalos();
+    echo $horario->imprimirHorarioDiario();*/
+
+//    $hora = new \DateTime();
+//    $hora->setTime(8,0);
+//    $intervalo = new \DateInterval("75");
+//    $hora->add($intervalo);
+//    var_dump ($hora);
+
+
+    //$persona = new Persona('44111222A', "Alba","Navarro Carbonell");
+    //$persona->setTelefono("965431789");
+
+    /*$bd= new PersonasDAOMySQL();
+    //$bd->modificarPersona($persona);
+
+    $personaLeida = $bd->obtenerTodasLasPersonas();
+
+    var_dump($personaLeida);*/
+
+    $horarioMensual = new HorarioMensual(10,2022);
+
+    $horarioMensual->generarHorarios();
+
+    echo $horarioMensual;

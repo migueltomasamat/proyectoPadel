@@ -2,6 +2,7 @@
 
 namespace App\Servicios;
 
+use App\Horarios\HorarioMensual;
 use App\Servicios\Enums\TipoPista;
 
 class Pista
@@ -160,9 +161,25 @@ class Pista
         return $this;
     }
 
-    public function generarHorarioMensual():Pista{
-        //TODO implmentar generador de Horarios
+    public function generarHorarioMensual($mes, $anyo):Pista{
+
+        //Comprobar los datos introducidos
+
+        $horarioMensual = new HorarioMensual($mes, $anyo);
+        $horarioMensual->generarHorarios();
+
+        $this->reservaPistaMensual[]=$horarioMensual;
+
         return $this;
+    }
+
+    public function reservarPista(Intervalo $intervalo, Jugador $Jugador, \DateTime $fecha){
+
+        //Funcionalidad del controlador
+    }
+
+    public function getReservaPistaMenual():array{
+        $this->reservaPistaMensual;
     }
 
 

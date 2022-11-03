@@ -2,6 +2,8 @@
 
 namespace App\Personas;
 
+require_once __DIR__."/../../autoload.php";
+
 class Persona
 {
     private string $dni;
@@ -63,7 +65,7 @@ class Persona
     /**
      * @return mixed
      */
-    public function getTelefono():Persona
+    public function getTelefono():string
     {
         return $this->telefono;
     }
