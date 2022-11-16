@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 02-11-2022 a las 15:11:46
+-- Tiempo de generación: 15-11-2022 a las 15:24:42
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.19
 
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `persona` (
-  `DNI` varchar(9) NOT NULL,
-  `NOMBRE` varchar(50) NOT NULL,
-  `APELLIDOS` varchar(100) NOT NULL,
-  `TELEFONO` varchar(9) DEFAULT NULL,
-  `CORREOELECTRONICO` varchar(320) NOT NULL,
-  `CONTRASENYA` varchar(255) NOT NULL
+                           `DNI` varchar(9) NOT NULL,
+                           `NOMBRE` varchar(50) NOT NULL,
+                           `APELLIDOS` varchar(100) NOT NULL,
+                           `TELEFONO` varchar(9) DEFAULT NULL,
+                           `CORREOELECTRONICO` varchar(320) NOT NULL,
+                           `CONTRASENYA` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -44,7 +44,8 @@ CREATE TABLE `persona` (
 -- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
-  ADD PRIMARY KEY (`DNI`);
+    ADD PRIMARY KEY (`DNI`),
+    ADD UNIQUE KEY `CORREOELECTRONICO` (`CORREOELECTRONICO`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
