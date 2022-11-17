@@ -33,12 +33,15 @@ class Router
         $ruta= parse_url($requestUri, PHP_URL_PATH);
         //Tengo que separar los ultimos caracteres de la URL
         $parametros = null;
-        if(substr_count($ruta,'/')>1){
-            $parametros = explode('/',$ruta)[2];
-            $ruta="/".explode('/',$ruta)[1];
+
+        if (str_contains($ruta,"api")){
+            $arrayElementos=explode('/',$ruta);
+            $parametros = end($arrayElementos);
+            $ruta=str_replace('/'.$parametros,'',$ruta);
         }
+
+        //echo "La ruta es: $ruta y los parámetros: $parametros";
         $metodo = strtolower($requestMethod);
-        echo $ruta."<br>".$parametros;
 
         //Si la ruta no está registrada
         $accion = $this->rutas[$metodo][$ruta] ?? null;

@@ -17,17 +17,19 @@
     use App\Personas\Persona;
     use Controlador\PersonaControlador;
     use Modelo\Personas\PersonasDAOMySQL;
+    use Vista\Landing;
     use Vista\Plantilla\Plantilla;
     use App\Router;
 
 
     $router = new Router();
-    $router->get("get",'/',[PersonaControlador::class,"index"]);
-    $router->get('get','/persona',[PersonaControlador::class,"index"]);
-    $router->get("get",'/personas',[PersonaControlador::class,"todasLasPersonas"]);
-    $router->post('post','/persona',[PersonaControlador::class,"create"]);
-    $router->delete("delete",'/persona',[PersonaControlador::class,"borrar"]);
-    $router->put("put",'/persona',[PersonaControlador::class,"actualizar"]);
+    $router->get("get",'/',[Landing::class,"mostrarPagina"]);
+    $router->get('get','/persona/login',[PersonaControlador::class,"index"]);
+    $router->get("get",'/api/personas',[PersonaControlador::class,"todasLasPersonas"]);
+    $router->get('get','/api/persona',[PersonaControlador::class,'mostrarPersona']);
+    $router->post('post','/api/persona',[PersonaControlador::class,"create"]);
+    $router->delete("delete",'/api/persona',[PersonaControlador::class,"borrar"]);
+    $router->put("put",'/api/persona',[PersonaControlador::class,"actualizar"]);
 
     $router->get("get",'/pista',function(){
         echo "Estás en pista";

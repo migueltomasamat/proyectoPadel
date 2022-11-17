@@ -25,6 +25,10 @@ class PersonaControlador
 
     }
 
+    public function mostrarPersona($dni){
+        return json_encode($this->modelo->obtenerPersona($dni),JSON_PRETTY_PRINT);
+    }
+
     public function todasLasPersonas(){
         $arrayPersonas = $this->modelo->obtenerTodasLasPersonas();
         header('Content-type:application/json;charset=utf-8');
@@ -56,11 +60,6 @@ class PersonaControlador
 
     public function actualizar($idPersona){
         parse_str(file_get_contents("php://input"),$put_vars);
-        echo "<pre>";
-
-        var_dump($_SESSION);
-
-        echo "<pre>";
 
         if ($this->modelo->existePersona($idPersona)) {
             $persona = $this->modelo->obtenerPersona($idPersona);
