@@ -7,11 +7,6 @@ abstract class PersonasDAO implements interfazPersonas
 {
     private $conexion;
 
-    public function __construct()
-    {
-
-    }
-
 
     public function getConexion()
     {

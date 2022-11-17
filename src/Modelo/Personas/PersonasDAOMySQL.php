@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Modelo\Personas;
 
@@ -20,7 +21,12 @@ class PersonasDAOMySQL extends PersonasDAO
 
         $sentenciaPreparada = $this->getConexion()->prepare($query);
 
-        $isOK=$sentenciaPreparada->execute([$persona->getDNI(),$persona->getNombre(),$persona->getApellidos(),$persona->getTelefono()]);
+
+        if ($persona->getTelefono()==''){
+            $isOK=$sentenciaPreparada->execute([$persona->getDNI(),$persona->getNombre(),$persona->getApellidos(),'null']);
+        }else{
+            $isOK=$sentenciaPreparada->execute([$persona->getDNI(),$persona->getNombre(),$persona->getApellidos(),$persona->getTelefono()]);
+        }
 
         if ($isOK){
             echo "sentencia ejecutada correctamente";
@@ -41,16 +47,14 @@ class PersonasDAOMySQL extends PersonasDAO
 
     public function borrarPersonaPorDNI(string $dni): self
     {
-        $query = "DELETE FROM persona WHERE DNI=?";
-
+        $query = "DELETE FROM persona WHERE DNI= :dni";
         $sentenciaPreparada = $this->getConexion()->prepare($query);
 
-       $sentenciaPreparada->bindParam(1,$dni);
+       $sentenciaPreparada->bindParam("dni",$dni,PDO::PARAM_STR);
 
-        $isOk = $sentenciaPreparada->execute();
+       echo  $sentenciaPreparada->execute();
 
-
-        if ($isOk){
+        if ($sentenciaPreparada->fetch()){
             echo "Se ha borrado correctamente el elemento";
         }else{
             echo "No se puede borrar el elemento";
@@ -60,7 +64,7 @@ class PersonasDAOMySQL extends PersonasDAO
 
     public function obtenerPersona(string $dni): Persona
     {
-        $sentencia = $this->getConexion()->prepare("SELECT * FROM persona WHERE DNI=:dni");
+        $sentencia = $this->getConexion()->prepare("SELECT * FROM persona WHERE  DNI=:dni");
 
         $sentencia->bindParam(":dni",$dni);
 
@@ -83,7 +87,7 @@ class PersonasDAOMySQL extends PersonasDAO
 
         $resultado = $sentencia->fetchAll();
 
-        $personas[]= null;
+        $personas=[];
         foreach($resultado as $fila){
             $personas[]=new Persona($fila["DNI"],$fila["NOMBRE"],$fila["APELLIDOS"]);
         }
@@ -113,19 +117,27 @@ class PersonasDAOMySQL extends PersonasDAO
 
         $sentenciaPreparada = $this->getConexion()->prepare($query);
 
-        $sentenciaPreparada->bindParam(1,$persona->getNombre());
-        $sentenciaPreparada->bindParam(2,$persona->getApellidos());
-        $sentenciaPreparada->bindParam(3,$persona->getTelefono());
-        $sentenciaPreparada->bindParam(4,$persona->getDNI());
+        $sentenciaPreparada->bindValue(1,$persona->getNombre());
+        $sentenciaPreparada->bindValue(2,$persona->getApellidos());
+        $sentenciaPreparada->bindValue(3,$persona->getTelefono());
+        $sentenciaPreparada->bindValue(4,$persona->getDNI());
 
-        $isOk = $sentenciaPreparada->execute();
+        echo $sentenciaPreparada->execute();
 
 
-        if ($isOk){
+        if ($sentenciaPreparada->fetch()){
             echo "Se ha modificado correctamente el elemento";
         }else{
             echo "No se puede modificar el elemento";
         }
         return $this;
+    }
+
+    public function existePersona($dniPersona):bool{
+        $query = "SELECT * FROM persona WHERE DNI=?";
+        $sentencia = $this->getConexion()->prepare($query);
+        $sentencia->bindParam(1,$dniPersona);
+        return $sentencia->execute();
+
     }
 }

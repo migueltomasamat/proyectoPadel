@@ -15,7 +15,26 @@
     use App\Personas\Enums\ManoHabil;
     use App\Personas\Jugador;
     use App\Personas\Persona;
+    use Controlador\PersonaControlador;
     use Modelo\Personas\PersonasDAOMySQL;
+    use Vista\Plantilla\Plantilla;
+    use App\Router;
+
+
+    $router = new Router();
+    $router->get("get",'/',[PersonaControlador::class,"index"]);
+    $router->get('get','/persona',[PersonaControlador::class,"index"]);
+    $router->get("get",'/personas',[PersonaControlador::class,"todasLasPersonas"]);
+    $router->post('post','/persona',[PersonaControlador::class,"create"]);
+    $router->delete("delete",'/persona',[PersonaControlador::class,"borrar"]);
+    $router->put("put",'/persona',[PersonaControlador::class,"actualizar"]);
+
+    $router->get("get",'/pista',function(){
+        echo "Estás en pista";
+    });
+
+   echo  $router->resolver($_SERVER['REQUEST_URI'],$_SERVER['REQUEST_METHOD']);
+
 
 
     /*include_once("App/Personas/Persona.php");
@@ -96,8 +115,12 @@
 
     var_dump($personaLeida);*/
 
-    $horarioMensual = new HorarioMensual(10,2022);
+//    $horarioMensual = new HorarioMensual(10,2022);
+//
+//    $horarioMensual->generarHorarios();
+//
+//    $plantilla = new Plantilla('Cobra Padel');
+//
+//
+//    echo $plantilla->generarWebCompleta($horarioMensual);
 
-    $horarioMensual->generarHorarios();
-
-    echo $horarioMensual;

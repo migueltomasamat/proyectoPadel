@@ -4,17 +4,18 @@ namespace App\Personas;
 
 require_once __DIR__."/../../autoload.php";
 
-class Persona
+class Persona implements \JsonSerializable
 {
     private string $dni;
     private string $nombre;
     private string $apellidos;
-    private string $telefono;
+    private ?string $telefono;
 
-    public function __construct(string $dni, string $nombre, string $apellidos){
+    public function __construct(string $dni, string $nombre="Sin nombre", string $apellidos="Sin apellidos", string $telefono=''){
         $this->dni=$dni;
         $this->nombre=$nombre;
         $this->apellidos=$apellidos;
+        $this->telefono=$telefono;
     }
 
     public function setDNI(string $dni):Persona{
@@ -78,5 +79,34 @@ class Persona
     {
         $this->telefono = $telefono;
         return $this;
+    }
+
+    public function __serialize(): array
+    {
+        return [
+           "dni"=>$this->dni,
+           "nombre" => $this->nombre,
+           "apellidos" => $this->apellidos,
+           "telefono" => $this->telefono
+        ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->dni=$data['dni'];
+        $this->nombre=$data['nombre'];
+        $this->apellidos=$data['apellidos'];
+        $this->telefono=$data['telefono'];
+
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            "dni"=>$this->dni,
+            "nombre" => $this->nombre,
+            "apellidos" => $this->apellidos,
+            "telefono" => $this->telefono
+        ];
     }
 }
