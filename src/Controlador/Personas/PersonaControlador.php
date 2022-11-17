@@ -44,6 +44,25 @@ class PersonaControlador
         echo "Esta es la página de login";
     }
 
+    public function mostrar($dni){
+       echo $dni;
+
+        //echo json_encode($this->modelo->leerTodasLasPersonas(),JSON_PRETTY_PRINT);
+
+    }
+
+    public function guardar(){
+        echo "Estas intentando guardar";
+    }
+
+    public function borrar(){
+
+    }
+
+    public function modificar(){
+
+    }
+
 
 
 
