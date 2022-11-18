@@ -26,18 +26,27 @@ class PersonaControlador
     }
 
     public function mostrarPersona($dni){
-        return json_encode($this->modelo->obtenerPersona($dni),JSON_PRETTY_PRINT);
+        echo  json_encode($this->modelo->obtenerPersona($dni),JSON_PRETTY_PRINT);
+    }
+
+    public function apiPersonas($dni){
+
+        if (isset($dni)){
+            $this->mostrarPersona($dni);
+        }else{
+            $this->todasLasPersonas();
+        }
+
     }
 
     public function todasLasPersonas(){
         $arrayPersonas = $this->modelo->obtenerTodasLasPersonas();
         header('Content-type:application/json;charset=utf-8');
 
-        $salida='';
-        foreach ($arrayPersonas as $persona){
-            $salida.= json_encode($persona,JSON_PRETTY_PRINT);
-        }
-        echo $salida;
+
+
+
+        echo json_encode($arrayPersonas,JSON_PRETTY_PRINT);
     }
 
     public function borrar($idPersona){

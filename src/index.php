@@ -25,7 +25,7 @@
     $router = new Router();
     $router->get("get",'/',[Landing::class,"mostrarPagina"]);
     $router->get('get','/persona/login',[PersonaControlador::class,"index"]);
-    $router->get("get",'/api/personas',[PersonaControlador::class,"todasLasPersonas"]);
+    $router->get("get",'/api/personas',[PersonaControlador::class,"apiPersonas"]);
     $router->get('get','/api/persona',[PersonaControlador::class,'mostrarPersona']);
     $router->post('post','/api/persona',[PersonaControlador::class,"create"]);
     $router->delete("delete",'/api/persona',[PersonaControlador::class,"borrar"]);

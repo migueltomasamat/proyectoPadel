@@ -36,8 +36,11 @@ class Router
 
         if (str_contains($ruta,"api")){
             $arrayElementos=explode('/',$ruta);
-            $parametros = end($arrayElementos);
-            $ruta=str_replace('/'.$parametros,'',$ruta);
+            if (count($arrayElementos)>3){
+                $parametros = end($arrayElementos);
+                $ruta=str_replace('/'.$parametros,'',$ruta);
+            }
+
         }
 
         //echo "La ruta es: $ruta y los parámetros: $parametros";
