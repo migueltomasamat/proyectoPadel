@@ -4,6 +4,7 @@ namespace Modelo\Personas;
 
 use App\Personas\Persona;
 use PDO;
+use Modelo\Excepciones\PersonaNoEncontradaException;
 
 require_once __DIR__."/../../datosConexionBD.php";
 require_once __DIR__."/../../datosConfiguracion.php";
@@ -33,15 +34,20 @@ class PersonaDAOMySQL extends PersonaDAO
         $sentencia = $this->getConexion()->prepare($query);
         $sentencia->bindParam(1, $dni);
         $sentencia->execute();
-        $fila = $sentencia->fetch();
-        return new Persona(
-            $fila['DNI'],
-            $fila['NOMBRE'],
-            $fila['APELLIDOS'],
-            $fila['CORREOELECTRONICO'],
-            $fila['CONTRASENYA'],
-            $fila['TELEFONO']
-        );
+
+        if(($fila = $sentencia->fetch())){
+            return new Persona(
+                $fila['DNI'],
+                $fila['NOMBRE'],
+                $fila['APELLIDOS'],
+                $fila['CORREOELECTRONICO'],
+                $fila['CONTRASENYA'],
+                $fila['TELEFONO']
+            );
+        }else{
+            throw new PersonaNoEncontradaException("La persona no existe en la base de datos");
+        }
+
     }
 
     public function modificarPersona(Persona $persona): ?Persona
