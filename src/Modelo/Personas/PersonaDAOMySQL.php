@@ -36,14 +36,24 @@ class PersonaDAOMySQL extends PersonaDAO
         $sentencia->execute();
 
         if(($fila = $sentencia->fetch())){
-            return new Persona(
-                $fila['DNI'],
-                $fila['NOMBRE'],
-                $fila['APELLIDOS'],
-                $fila['CORREOELECTRONICO'],
-                $fila['CONTRASENYA'],
-                $fila['TELEFONO']
-            );
+            if($fila['TELEFONO']==null){
+                return new Persona(
+                    $fila['DNI'],
+                    $fila['NOMBRE'],
+                    $fila['APELLIDOS'],
+                    $fila['CORREOELECTRONICO'],
+                    $fila['CONTRASENYA']
+                );
+            }else{
+                return new Persona(
+                    $fila['DNI'],
+                    $fila['NOMBRE'],
+                    $fila['APELLIDOS'],
+                    $fila['CORREOELECTRONICO'],
+                    $fila['CONTRASENYA'],
+                    $fila['TELEFONO']
+                );
+            }
         }else{
             throw new PersonaNoEncontradaException("La persona no existe en la base de datos");
         }
@@ -75,12 +85,18 @@ class PersonaDAOMySQL extends PersonaDAO
 
     public function borrarPersonaPorDNI(string $dni): ?Persona
     {
-        $persona = $this->leerPersona($dni);
+        try{
+            $persona = $this->leerPersona($dni);
+        }catch(PersonaNoEncontradaException $e){
+            throw new PersonaNoEncontradaException("No se puede borrar, la persona no existe");
+        }
+
         $query = "DELETE FROM persona WHERE DNI=?";
         $sentencia = $this->getConexion()->prepare($query);
         $sentencia->bindParam(1, $dni);
         $resultado = $sentencia->execute();
 
+        echo $resultado;
         if ($resultado) {
             return $persona;
         } else {
@@ -240,6 +256,32 @@ class PersonaDAOMySQL extends PersonaDAO
         }else{
             return null;
         }
+    }
+    public function existeDNI($dni):bool{
+        $query = "SELECT * FROM persona WHERE DNI=?";
+        $sentencia = $this->getConexion()->prepare($query);
+        $sentencia->bindParam(1,$dni);
+        $sentencia->execute();
+
+        if($sentencia->fetch()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+    public function existeCorreoElectronico($correo):bool{
+        $query = "SELECT * FROM persona WHERE CORREOELECTRONICO=?";
+        $sentencia = $this->getConexion()->prepare($query);
+        $sentencia->bindParam(1,$correo);
+        $sentencia->execute();
+
+        if($sentencia->fetch()){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 

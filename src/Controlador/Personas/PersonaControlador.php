@@ -112,11 +112,62 @@ class PersonaControlador
         }
     }
 
-    public function borrar(){
+    public function borrar($dni){
+        if(isset($dni)){
+            try{
+                $this->modelo->borrarPersonaPorDNI($dni);
+            }catch(PersonaNoEncontradaException $e){
+                header("Persona no encontrada",true,500);
+            }
+
+        }else{
+           $this->modelo->borrarTodasLasPersonas();
+        }
 
     }
 
-    public function modificar(){
+    public function modificar($dni){
+        parse_str(file_get_contents("php://input"),$put_vars);
+        if(isset($dni)){
+            try{
+                $persona= $this->modelo->leerPersona($dni);
+            }catch (PersonaNoEncontradaException $e){
+                header("Persona no encontrada",true,404);
+                die;
+            }
+            if (isset($put_vars['dni'])){
+                if ($this->modelo->existeDNI($put_vars['dni'])){
+                    header("DNI existente",true,204);
+                    die;
+                }else{
+                    $persona->setDNI($put_vars['dni']);
+                }
+            }
+            if (isset($put_vars['nombre'])){
+                $persona->setNombre($put_vars['nombre']);
+            }
+            if (isset($put_vars['apellidos'])){
+                $persona->setApellidos($put_vars['apellidos']);
+            }
+            if (isset($put_vars['telefono'])){
+                $persona->setTelefono($put_vars['telefono']);
+            }
+            if (isset($put_vars['contrasenya'])){
+                $persona->setContrasenya($put_vars['contrasenya']);
+            }
+            if (isset($put_vars['correoelectronico'])){
+                if ($this->modelo->existeCorreoElectronico($put_vars['correoelectronico'])){
+                    header("Correo electronico existente",true,204);
+                    die;
+                }else{
+                    $persona->setCorreoElectronico($put_vars['correoelectronico']);
+                }
+            }
+            $this->modelo->modificarPersona($persona);
+
+        }else{
+
+        }
 
     }
 
