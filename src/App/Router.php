@@ -18,11 +18,12 @@ class Router
 
         $rutaFiltrada=parse_url($ruta,PHP_URL_PATH);
         $arrayRuta =explode('/',$rutaFiltrada);
+        var_dump($arrayRuta);
 
         $parametros = null;
-        if(count($arrayRuta)>2){
-            $parametros = $arrayRuta[2];
-            $rutaFiltrada='/'.$arrayRuta[1];
+        if(count($arrayRuta)>3){
+            $parametros = $arrayRuta[3];
+            $rutaFiltrada='/'.$arrayRuta[1].'/'.$arrayRuta[2];
         }
 
         $metodo=strtolower($metodo);

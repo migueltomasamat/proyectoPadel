@@ -21,10 +21,10 @@
     $router->guardarRuta('get','/',function(){
         echo "Estoy en el index";
     });
-    $router->guardarRuta('get','/personas',[PersonaControlador::class,"mostrar"]);
-    $router->guardarRuta('post','/personas',[PersonaControlador::class,"guardar"]);
-    $router->guardarRuta('delete','/personas',[PersonaControlador::class,"borrar"]);
-    $router->guardarRuta('put','/personas',[PersonaControlador::class,"modificar"]);
+    $router->guardarRuta('get','/api/personas',[PersonaControlador::class,"mostrar"]);
+    $router->guardarRuta('post','/api/personas',[PersonaControlador::class,"guardar"]);
+    $router->guardarRuta('delete','/api/personas',[PersonaControlador::class,"borrar"]);
+    $router->guardarRuta('put','/api/personas',[PersonaControlador::class,"modificar"]);
 
 
 

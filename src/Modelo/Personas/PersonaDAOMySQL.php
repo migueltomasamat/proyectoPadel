@@ -5,6 +5,8 @@ namespace Modelo\Personas;
 use App\Personas\Persona;
 use PDO;
 use Modelo\Excepciones\PersonaNoEncontradaException;
+use Modelo\Excepciones\ActualizarPersonasException;
+use PDOException;
 
 require_once __DIR__."/../../datosConexionBD.php";
 require_once __DIR__."/../../datosConfiguracion.php";
@@ -75,12 +77,54 @@ class PersonaDAOMySQL extends PersonaDAO
         $sentencia->bindValue("dni", $persona->getDNI());
 
         $resultado = $sentencia->execute();
-
+        echo $resultado;
         if ($resultado) {
             return $persona;
         } else {
             return null;
         }
+    }
+
+    public function modificarTodasLasPersonas(array $elementosAModificar){
+        $query = "UPDATE persona SET ";
+
+        if (isset($elementosAModificar['nombre'])){
+            $query.="NOMBRE=:nombre,";
+        }
+        if (isset($elementosAModificar['apellidos'])){
+            $query.="APELLIDOS=:apellidos,";
+        }
+        if (isset($elementosAModificar['telefono'])){
+            $query.="TELEFONO=:telefono,";
+        }
+        if (isset($elementosAModificar['contrasenya'])){
+            $query.="CONTRASENYA=:contrasenya,";
+        }
+
+        $query=substr($query,0,-1);
+        $sentencia=$this->getConexion()->prepare($query);
+
+        if (isset($elementosAModificar['nombre'])){
+            $sentencia->bindParam("nombre",$elementosAModificar['nombre']);
+        }
+        if (isset($elementosAModificar['apellidos'])){
+            $sentencia->bindParam("apellidos",$elementosAModificar['apellidos']);
+        }
+        if (isset($elementosAModificar['telefono'])){
+            $sentencia->bindParam("telefono",$elementosAModificar['telefono']);
+        }
+        if (isset($elementosAModificar['contrasenya'])){
+            $contrasenyaCifrada= password_hash($elementosAModificar['contrasenya'],PASSWORD_DEFAULT);
+            $sentencia->bindParam("contrasenya",$contrasenyaCifrada);
+        }
+
+        try{
+            $sentencia->execute();
+        }catch(PDOException $e){
+            throw new ActualizarPersonasException("No se han actualizado las personas");
+        }
+
+
     }
 
     public function borrarPersonaPorDNI(string $dni): ?Persona

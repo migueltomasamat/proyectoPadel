@@ -2,6 +2,7 @@
 
 namespace Controlador\Personas;
 
+use Modelo\Excepciones\ActualizarPersonasException;
 use Modelo\Excepciones\PersonaNoEncontradaException;
 use Modelo\Personas\PersonaDAO;
 use Modelo\Personas\PersonaDAOMySQL;
@@ -71,7 +72,8 @@ class PersonaControlador
 
         if (is_bool($respuestaControlPersona)){
             $persona= new Persona($_POST['dni'],$_POST['nombre'],
-                $_POST['apellidos'],$_POST['correoelectronico'],$_POST['contrasenya']);
+                $_POST['apellidos'],$_POST['correoelectronico'],
+                password_hash($_POST['contrasenya'],PASSWORD_DEFAULT));
             if (isset($_POST['telefono'])){
                 $persona->setTelefono($_POST['telefono']);
             }
@@ -153,7 +155,8 @@ class PersonaControlador
                 $persona->setTelefono($put_vars['telefono']);
             }
             if (isset($put_vars['contrasenya'])){
-                $persona->setContrasenya($put_vars['contrasenya']);
+                $persona->setContrasenya(
+                    password_hash($put_vars['contrasenya'],PASSWORD_DEFAULT));
             }
             if (isset($put_vars['correoelectronico'])){
                 if ($this->modelo->existeCorreoElectronico($put_vars['correoelectronico'])){
@@ -166,7 +169,13 @@ class PersonaControlador
             $this->modelo->modificarPersona($persona);
 
         }else{
+            //Modificacion de varias personas
+            try{
+                $this->modelo->modificarTodasLasPersonas($put_vars);
 
+            }catch(ActualizarPersonasException $e){
+                header($e->getMessage(),true,204);
+            }
         }
 
     }
