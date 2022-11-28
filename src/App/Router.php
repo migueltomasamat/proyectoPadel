@@ -18,7 +18,7 @@ class Router
 
         $rutaFiltrada=parse_url($ruta,PHP_URL_PATH);
         $arrayRuta =explode('/',$rutaFiltrada);
-        var_dump($arrayRuta);
+        //var_dump($arrayRuta);
 
         $parametros = null;
         if(count($arrayRuta)>3){

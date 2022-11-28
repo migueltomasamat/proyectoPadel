@@ -24,10 +24,23 @@ class PersonaControlador
         $this->modelo = new personaDAOMySQL();
         //$this->vista = new personaVista();
     }
+
+    public function recibirDatosLogin(){
+        if (isset($_POST['correoelectronico']) && isset($_POST['contrasenya'])){
+            $this->comprobarUsuarioWeb($_POST['correoelectronico'],$_POST['contrasenya']);
+        }else{
+            echo "Parametros de login incorrectos";
+        }
+    }
+
+
     public function comprobarUsuarioWeb($correoUsuario, $pass){
         $persona=$this->modelo->leerPersonaPorCorreoElectronico($correoUsuario);
         if(password_verify($pass,$persona->getContrasenya())){
-            echo "yupiiiii";
+            session_start();
+            $_SESSION['logeado']=true;
+            $_SESSION['usuario']=$this->modelo->leerPersonaPorCorreoElectronico($correoUsuario)->getNombre();
+            echo "<a href='/'> Volver al inicio </a>";
         }else{
             echo "contraseña incorrecta";
         }
