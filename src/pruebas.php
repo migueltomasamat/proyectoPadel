@@ -88,7 +88,7 @@ echo "<br> Resultado de la búsqueda: ". array_search($intervalo2,$array);*/
 //
 //    echo $vista;
 
-use Controlador\Personas\PersonaControlador;
+use App\Controlador\Personas\PersonaControlador;
 use Vistas\Plantillas\Plantilla;
 
 $plantilla = new Plantilla("Prueba");

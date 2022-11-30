@@ -5,12 +5,12 @@
 
     namespace App;
 
-    use Controlador\Personas\PersonaControlador;
-    use Vistas\LandingVista;
-    use Vistas\LoginVista;
+    use App\Controlador\Personas\PersonaControlador;
+    use App\Vistas\LandingVista;
+    use App\Vistas\LoginVista;
 
 
-    include __DIR__."/autoload.php";
+    include __DIR__."/vendor/autoload.php";
 
 //    echo "<pre>";
 //    var_dump($_SERVER);
