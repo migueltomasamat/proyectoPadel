@@ -7,21 +7,21 @@ use PDO;
 
 abstract class PersonaDAO implements InterfazPersonas
 {
-    private PDO $conexion;
+    private $conexion;
 
     /**
-     * @return PDO
+     * @return
      */
-    public function getConexion(): PDO
+    public function getConexion()
     {
         return $this->conexion;
     }
 
     /**
-     * @param PDO $conexion
+     * @param  $conexion
      * @return PersonaDAO
      */
-    public function setConexion(PDO $conexion): PersonaDAO
+    public function setConexion($conexion): PersonaDAO
     {
         $this->conexion = $conexion;
         return $this;
@@ -80,6 +80,18 @@ abstract class PersonaDAO implements InterfazPersonas
     }
     public function leerPersonaPorCorreoElectronico(string $correoElectronico):?Persona{
 
+    }
+
+    protected function convertirArrayAPersona(array $datosPersona):?Persona
+    {
+        if (!isset($datosPersona[strtolower('TELEFONO')])
+            || $datosPersona[strtolower('TELEFONO')]==NULL){
+            $datosPersona[strtolower('TELEFONO')]='';
+        }
+
+        return new Persona($datosPersona[strtolower('DNI')],$datosPersona[strtolower('NOMBRE')],
+            $datosPersona[strtolower('APELLIDOS')],$datosPersona[strtolower('CORREOELECTRONICO')],
+            $datosPersona[strtolower('CONTRASENYA')],$datosPersona[strtolower('TELEFONO')]);
     }
 
 }

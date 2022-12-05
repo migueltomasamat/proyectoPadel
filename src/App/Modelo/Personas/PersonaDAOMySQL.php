@@ -277,7 +277,7 @@ class PersonaDAOMySQL extends PersonaDAO
     }
 
 
-    private function convertirArrayAPersona(array $datosPersona):?Persona
+    /*private function convertirArrayAPersona(array $datosPersona):?Persona
     {
         if ($datosPersona['TELEFONO']==NULL){
             $datosPersona['TELEFONO']='';
@@ -286,7 +286,7 @@ class PersonaDAOMySQL extends PersonaDAO
         return new Persona($datosPersona['DNI'],$datosPersona['NOMBRE'],
             $datosPersona['APELLIDOS'],$datosPersona['CORREOELECTRONICO'],
             $datosPersona['CONTRASENYA'],$datosPersona['TELEFONO']);
-    }
+    }*/
 
     public function leerPersonaPorCorreoElectronico(string $correoElectronico):?Persona{
         $query = "SELECT * FROM persona WHERE CORREOELECTRONICO=?";

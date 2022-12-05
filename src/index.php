@@ -6,15 +6,31 @@
     namespace App;
 
     use App\Controlador\Personas\PersonaControlador;
+    use App\Modelo\Personas\PersonaDAOMongoDB;
     use App\Vistas\LandingVista;
     use App\Vistas\LoginVista;
+    use App\Personas\Persona;
 
 
     include __DIR__."/vendor/autoload.php";
 
-//    echo "<pre>";
-//    var_dump($_SERVER);
-//    echo "<pre>";
+
+    $mongodb= new PersonaDAOMongoDB();
+    $persona = new Persona('44111444B','Carlos','Martinez',
+        'carlos@gmail.com','1234',"987653421");
+
+    //$persona->setCorreoElectronico("");
+
+
+    //$mongodb->insertarPersona($persona);
+    $mongodb->modificarPersona($persona);
+
+
+
+    //var_dump($mongodb->leerTodasLasPersonas());
+
+
+
 
     $router = new Router();
     $router->guardarRuta('get','/',[LandingVista::class,"mostrarPagina"]);
@@ -25,5 +41,5 @@
     $router->guardarRuta('delete','/api/persona',[PersonaControlador::class,"borrar"]);
     $router->guardarRuta('put','/api/persona',[PersonaControlador::class,"modificar"]);
 
-    $router->resolverRuta($_SERVER['REQUEST_URI'],$_SERVER['REQUEST_METHOD']);
+    //$router->resolverRuta($_SERVER['REQUEST_URI'],$_SERVER['REQUEST_METHOD']);
 

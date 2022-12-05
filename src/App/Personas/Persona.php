@@ -3,6 +3,8 @@
 namespace App\Personas;
 
 
+use Ramsey\Uuid\Uuid;
+
 class Persona implements \JsonSerializable
 {
     private string $dni;
@@ -140,5 +142,28 @@ class Persona implements \JsonSerializable
         'telefono'=>$this->telefono,
         'correoelectronico'=>$this->correoElectronico,
         ];
+    }
+    public function __serialize(): array
+    {
+        return [
+            'dni'=>$this->dni,
+            'nombre'=>$this->nombre,
+            'apellidos'=>$this->apellidos,
+            'telefono'=>$this->telefono,
+            'correoelectronico'=>$this->correoElectronico,
+            'contrasenya'=>$this->contrasenya
+        ];
+    }
+
+    public function convertirPersonaAArrayParaMongoDB():array{
+            return [
+                '_id'=>Uuid::uuid4()->toString(),
+                'dni'=>$this->dni,
+                'nombre'=>$this->nombre,
+                'apellidos'=>$this->apellidos,
+                'telefono'=>$this->telefono,
+                'correoelectronico'=>$this->correoElectronico,
+                'contrasenya'=>$this->contrasenya
+            ];
     }
 }
