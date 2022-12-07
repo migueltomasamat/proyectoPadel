@@ -10,12 +10,13 @@
     use App\Vistas\LandingVista;
     use App\Vistas\LoginVista;
     use App\Personas\Persona;
-
+    use App\Controlador\Servicios\PistaControlador;
+    session_start();
 
     include __DIR__."/vendor/autoload.php";
 
 
-    $mongodb= new PersonaDAOMongoDB();
+    /*$mongodb= new PersonaDAOMongoDB();
     $persona = new Persona('44111444B','Carlos','Martinez',
         'carlos@gmail.com','1234',"987653421");
 
@@ -27,7 +28,7 @@
 
 
 
-    //var_dump($mongodb->leerTodasLasPersonas());
+    //ar_dump($mongodb->leerTodasLasPersonas());*/
 
 
 
@@ -39,7 +40,11 @@
     $router->guardarRuta('get','/api/persona',[PersonaControlador::class,"mostrar"]);
     $router->guardarRuta('post','/api/persona',[PersonaControlador::class,"guardar"]);
     $router->guardarRuta('delete','/api/persona',[PersonaControlador::class,"borrar"]);
-    $router->guardarRuta('put','/api/persona',[PersonaControlador::class,"modificar"]);
+    $router->guardarRuta('put','/api/persona',[PistaControlador::class,"modificar"]);
+    $router->guardarRuta('get','/api/pista',[PistaControlador::class,"mostrar"]);
+    $router->guardarRuta('post','/api/pista',[PistaControlador::class,"guardar"]);
+    $router->guardarRuta('delete','/api/pista',[PistaControlador::class,"borrar"]);
+    $router->guardarRuta('put','/api/pista',[PistaControlador::class,"modificar"]);
 
-    //$router->resolverRuta($_SERVER['REQUEST_URI'],$_SERVER['REQUEST_METHOD']);
+    $router->resolverRuta($_SERVER['REQUEST_URI'],$_SERVER['REQUEST_METHOD']);
 

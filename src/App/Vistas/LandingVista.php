@@ -10,8 +10,8 @@ class LandingVista
 
     public function __construct()
     {
-        session_start();
-        if ($_SESSION['logeado']){
+        //session_start();
+        if (isset($_SESSION['logeado'])){
             $this->html = new Plantilla("Cobra Padel",encabezadoPrincipal: "Cobra Pádel",
                 descripcionPrincipal: "Si amas el pádel este es tu lugar, bienvenido",
                 menu: ['Inicio'=>'/','Log-Out'=>'/logout','Pistas'=>'/pistas']);
@@ -28,7 +28,7 @@ class LandingVista
     }
 
     public function mostrarPagina():void{
-        session_start();
+        //session_start();
         echo $this->html->generarWebCompleta();
     }
 

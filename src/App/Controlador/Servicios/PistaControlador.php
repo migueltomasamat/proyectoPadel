@@ -2,12 +2,12 @@
 
 namespace App\Controlador\Servicios;
 
-use App\Modelo\Servicios\PistaDAO;
+use App\Modelo\Servicios\PistaModelo;
 use App\Controlador\Servicios\pistaVista;
 
 class PistaControlador
 {
-    private pistaDAO $modelo;
+    private PistaModelo $modelo;
     private pistaVista $vista;
 
     private function generarHorarioMensual(){
