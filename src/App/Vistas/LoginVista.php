@@ -21,12 +21,18 @@ class LoginVista
     public function generarFormularioLogin():string{
 
         $salida="
-            <form action='/logear' method='post'>
-            <label for='inputCorreo'>Introduce tu correo</label>
-            <input type='email' name='correoelectronico' id='inputCorreo'>
-            <label for='inputContrasenya'>Introduce tu contraseña</label>
-            <input type='password' name='contrasenya' id='inputContrasenya'>
-            <button type='submit'>Enviar</button>
+            
+            <h3>Entra con tu usuario y contraseña</h3>
+           <form action='/logear' method='post'>
+            <div class='mb-3'>
+                <label for='inputCorreo' class='form-label'>Correo Electrónico</label>  
+                <input type='text' class='form-control' name='correo' id='inputCorreo' placeholder='Introduce tu correo'>
+            </div>
+            <div class='mb-3'>
+                <label for='inputPass' class='form-label'>Nombre</label> 
+                <input type='password' class='form-control' name='pass' id='inputPass' placeholder='Introduce tu contraseña'>
+            </div> 
+            <button type='submit' class='btn btn-primary'>Log-In</button>
             </form>
         ";
         return $salida;
@@ -34,20 +40,27 @@ class LoginVista
 
     public function generarFormularioRegistro():string{
         $salida="
+            
+            <h3>Registrate en nuestro club</h3>
             <form action='/api/persona' method='post'>
-            <label for='inputDNI'>Introduce tu dni</label>
-            <input type='text' name='dni' id='inputDNI'>
-             <label for='inputNombre'>Introduce tu nombre</label>
-            <input type='text' name='nombre' id='inputNombre'>
-             <label for='inputApellidos'>Introduce tus apellidos</label>
-            <input type='text' name='apellidos' id='inputApellidos'>
-            <label for='inputTelefono'>Introduce tu telefono</label>
-            <input type='tel' name='telefono' id='inputTelefono'>
-            <label for='inputCorreo'>Introduce tu correo</label>
-            <input type='email' name='correoelectronico' id='inputCorreo'>
-            <label for='inputContrasenya'>Introduce tu contraseña</label>
-            <input type='password' name='contrasenya' id='inputContrasenya'>
-            <button type='submit'>Registro</button>
+            <div class='mb-3'>
+                <label for='inputDNI' class='form-label'>DNI</label>  
+                <input type='text' class='form-control' name='dni' id='inputDNI' placeholder='Introduce el dni'>
+            </div>
+            <div class='mb-3'>
+                <label for='inputNombre' class='form-label'>Nombre</label> 
+                <input type='text' class='form-control' name='nombre' id='inputNombre' placeholder='Introduce el nombre'>
+            </div>
+            <div class='mb-3'>
+                <label for='inputApellido' class='form-label'>Apellidos</label>
+                <input type='text' class='form-control' name='apellidos' id='inputApellido' placeholder='Introduce los apellidos'>
+            </div>
+            <div class='mb-3'>
+                <label for='inputTelefono' class='form-label'>Teléfono</label>
+                <input type=tel class='form-control' name='apellidos' id='inputTelefono' placeholder='Introduce tu teléfono'>
+            </div>
+                <button type='submit' class='btn btn-primary'>Enviar Datos</button>
+            </form>
             
             </form>
         ";
