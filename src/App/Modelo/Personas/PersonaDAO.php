@@ -89,9 +89,9 @@ abstract class PersonaDAO implements InterfazPersonas
             $datosPersona[strtolower('TELEFONO')]='';
         }
 
-        return new Persona($datosPersona[strtolower('DNI')],$datosPersona[strtolower('NOMBRE')],
-            $datosPersona[strtolower('APELLIDOS')],$datosPersona[strtolower('CORREOELECTRONICO')],
-            $datosPersona[strtolower('CONTRASENYA')],$datosPersona[strtolower('TELEFONO')]);
+        return new Persona($datosPersona['DNI'],$datosPersona['NOMBRE'],
+            $datosPersona['APELLIDOS'],$datosPersona['CORREOELECTRONICO'],
+            $datosPersona['CONTRASENYA'],$datosPersona['TELEFONO']);
     }
 
 }

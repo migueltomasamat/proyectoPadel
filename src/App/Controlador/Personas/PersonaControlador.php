@@ -7,7 +7,7 @@ use App\Modelo\Excepciones\PersonaNoEncontradaException;
 use App\Modelo\Personas\PersonaDAO;
 use App\Modelo\Personas\PersonaDAOMySQL;
 use App\Personas\Persona;
-use App\Controlador\Personas\ParametrosDePersonaIncorrectosException;
+use App\Modelo\Excepciones\ParametrosDePersonaIncorrectosException;
 use App\Controlador\Personas\personaVista;
 
 
@@ -34,14 +34,22 @@ class PersonaControlador
         }
     }
 
+    public function borrarSesion(){
+        session_destroy();
+        header("refresh:0;url=/");
+
+    }
+
 
     public function comprobarUsuarioWeb($correoUsuario, $pass){
         $persona=$this->modelo->leerPersonaPorCorreoElectronico($correoUsuario);
         if(password_verify($pass,$persona->getContrasenya())){
-            session_start();
+
             $_SESSION['logeado']=true;
             $_SESSION['usuario']=$this->modelo->leerPersonaPorCorreoElectronico($correoUsuario)->getNombre();
+            setcookie("apodo","mike",time()+3600);
             echo "<a href='/'> Volver al inicio </a>";
+
         }else{
             echo "contraseña incorrecta";
         }
@@ -99,6 +107,7 @@ class PersonaControlador
             }
             throw new ParametrosDePersonaIncorrectosException($mensajeError);
         }
+        header("refresh:0;url=/");
 
     }
 

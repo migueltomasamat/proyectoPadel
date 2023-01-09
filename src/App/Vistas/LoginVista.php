@@ -26,11 +26,11 @@ class LoginVista
            <form action='/logear' method='post'>
             <div class='mb-3'>
                 <label for='inputCorreo' class='form-label'>Correo Electrónico</label>  
-                <input type='text' class='form-control' name='correo' id='inputCorreo' placeholder='Introduce tu correo'>
+                <input type='text' class='form-control' name='correoelectronico' id='inputCorreo' placeholder='Introduce tu correo'>
             </div>
             <div class='mb-3'>
-                <label for='inputPass' class='form-label'>Nombre</label> 
-                <input type='password' class='form-control' name='pass' id='inputPass' placeholder='Introduce tu contraseña'>
+                <label for='inputPass' class='form-label'>Contraseña</label> 
+                <input type='password' class='form-control' name='contrasenya' id='inputPass' placeholder='Introduce tu contraseña'>
             </div> 
             <button type='submit' class='btn btn-primary'>Log-In</button>
             </form>
@@ -58,6 +58,14 @@ class LoginVista
             <div class='mb-3'>
                 <label for='inputTelefono' class='form-label'>Teléfono</label>
                 <input type=tel class='form-control' name='apellidos' id='inputTelefono' placeholder='Introduce tu teléfono'>
+            </div>
+            <div class='mb-3'>
+                <label for='inputCorreo' class='form-label'>Correo Electrónico</label>
+                <input type=email class='form-control' name='correoelectronico' id='inputCorreo' placeholder='Introduce tu correo'>
+            </div>
+            <div class='mb-3'>
+                <label for='inputContraseña' class='form-label'>Contraseña</label>
+                <input type=password class='form-control' name='contrasenya' id='inputContraseña' placeholder='Introduce tu contraseña'>
             </div>
                 <button type='submit' class='btn btn-primary'>Enviar Datos</button>
             </form>

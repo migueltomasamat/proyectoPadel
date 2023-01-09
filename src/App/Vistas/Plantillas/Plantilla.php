@@ -115,7 +115,7 @@ class Plantilla
 
 
     public function __construct(string $titulo="Sin titulo",string $dirLogotipo='/App/Vistas/Plantillas/assets/img/logo.png' ,
-        array $menu=['Inicio'=>'/','Log-in'=>'login','Registro'=>'#'],
+        array $menu=['Inicio'=>'/','Log-in/Registro'=>'login','Pistas'=>'pistas'],
         $encabezadoPrincipal="Sin encabezado",$descripcionPrincipal="Sin descripción"){
         $this->generarEncabezadoHTML($titulo);
         $this->generarBarraNavegacionHTML($dirLogotipo,$menu);
