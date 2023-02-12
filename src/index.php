@@ -6,6 +6,7 @@
     namespace App;
     use App\Controlador\PistaControlador;
     use App\Controlador\Servicios\ParqueBolasControlador;
+    use App\Controlador\Servicios\ReservaMaquinaGimnasioControlador;
     use App\Modelo\Servicios\ParqueBolasModelo;
     use App\Personas\Persona;
 
@@ -13,6 +14,7 @@
 
     use App\Controlador\PersonaControlador;
     use App\Servicios\ParqueBolas;
+    use App\Servicios\ReservaMaquinaGimnasio;
     use App\Vista\Landing;
     //$mongodb = new Modelo\Personas\PersonasDAOMongoDB();
     $persona = new Persona('44111222A', "Alba","Garcia Garcia");
@@ -51,6 +53,11 @@
     $router->put('post','/api/parquebolas',[ParqueBolasControlador::class,"store"]);
     $router->put('delete','/api/parquebolas',[ParqueBolasControlador::class,"delete"]);
     $router->put('get','/parquebolas',[ParqueBolasControlador::class,"mostrar"]);
+    $router->put('get','/api/maquinagimnasio',[ReservaMaquinaGimnasioControlador::class,"index"]);
+    $router->put('post','/api/maquinagimnasio',[ReservaMaquinaGimnasioControlador::class,"store"]);
+    $router->put('delete','/api/maquinagimnasio',[ReservaMaquinaGimnasioControlador::class,"destroy"]);
+    $router->put('get','/maquinagimnasio',[ReservaMaquinaGimnasioControlador::class,"mostrarGradoOcupacion"]);
+
 
 
 
