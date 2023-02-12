@@ -2,9 +2,6 @@
 
 namespace App\Personas;
 
-require_once __DIR__."/../../autoload.php";
-
-use App\Personas\Jugador;
 
 class Entrenador extends Empleado
 {

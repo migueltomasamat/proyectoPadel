@@ -12,6 +12,12 @@ use App\Personas\Jugador;
  */
 class Intervalo
 {
+    private int $id;
+
+    /**
+     * @return float
+     */
+
     /**
      * @var float
      */
@@ -29,17 +35,37 @@ class Intervalo
      */
     private ?Jugador $socioReservado=null;
 
+    private ?HorarioDiario $horarioDiario=null;
+
+    /**
+     * @return HorarioDiario|null
+     */
+    public function getHorarioDiario(): ?HorarioDiario
+    {
+        return $this->horarioDiario;
+    }
+
+    /**
+     * @param HorarioDiario|null $horarioDiario
+     */
+    public function setHorarioDiario(?HorarioDiario $horarioDiario): void
+    {
+        $this->horarioDiario = $horarioDiario;
+    }
+
 
     /**
      * @param float $horaInicio
      * @param float $horaFin
      */
-    public function __construct(float $horaInicio, float $horaFin)
+    public function __construct(float $horaInicio, float $horaFin, bool $disponibilidad=true, ?Jugador $jugador=null,?HorarioDiario $horarioDiario=null)
     {
         $this->horaInicio = $horaInicio;
         $this->horaFin = $horaFin;
         //Considero que cuando creo el intervalo, este estará disponible
-        $this->disponibilidad=true;
+        $this->disponibilidad=$disponibilidad;
+        $this->socioReservado=$jugador;
+        $this->horarioDiario=$horarioDiario;
     }
 
 
@@ -104,7 +130,7 @@ class Intervalo
     /**
      * @return Jugador
      */
-    public function getSocioReservado():Jugador
+    public function getSocioReservado():?Jugador
     {
         return $this->socioReservado;
     }
@@ -161,5 +187,18 @@ class Intervalo
             $retorno.="Socio que tiene reservada la pista: ".$this->getSocioReservado()->getNombre()." ". $this->getSocioReservado()->getApellidos();
         }
         return $retorno;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param float $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 }

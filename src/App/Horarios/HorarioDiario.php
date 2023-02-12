@@ -16,21 +16,21 @@ class HorarioDiario
      */
     private DateTime $fecha;
     /**
-     * @var float
+     * @var ?float
      */
-    private float $horaApertura;
+    private ?float $horaApertura;
     /**
      * @var float
      */
-    private float $horaCierre;
+    private ?float $horaCierre;
     /**
      * @var int
      */
-    private int $duracionIntervalos;
+    private ?int $duracionIntervalos;
     /**
      * @var array
      */
-    private array $intervalosDelDia;
+    private ?array $intervalosDelDia;
 
 
     /**
@@ -40,7 +40,7 @@ class HorarioDiario
      * @param int $duracionIntervalos
      * @throws HoraNoValidaException
      */
-    public function __construct(DateTime $fecha, float $horaApertura, float $horaCierre, int $duracionIntervalos)
+    public function __construct(DateTime $fecha, float $horaApertura=08.00, float $horaCierre=22.00, int $duracionIntervalos=60,array $intervalos=null)
     {
         if ($horaApertura>23){
             throw new HoraNoValidaException("Hora mayor que 23");
@@ -52,6 +52,7 @@ class HorarioDiario
         $this->horaApertura = $horaApertura;
         $this->horaCierre = $horaCierre;
         $this->duracionIntervalos = $duracionIntervalos;
+        $this->intervalosDelDia = $intervalos;
     }
 
     /**

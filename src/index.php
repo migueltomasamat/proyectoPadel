@@ -1,41 +1,66 @@
 <?php
 
 
-//    use \App\Persona;
+
 
     namespace App;
-
-    require "autoload.php";
-
-    use App\Horarios\HorarioDiario;
-    use App\Horarios\HorarioMensual;
-    use App\Horarios\Intervalo;
-    use App\Personas\Entrenador;
-    use App\Personas\Enums\LadoPreferido;
-    use App\Personas\Enums\ManoHabil;
-    use App\Personas\Jugador;
+    use App\Controlador\PistaControlador;
+    use App\Controlador\Servicios\ParqueBolasControlador;
+    use App\Modelo\Servicios\ParqueBolasModelo;
     use App\Personas\Persona;
-    use Controlador\PersonaControlador;
-    use Modelo\Personas\PersonasDAOMySQL;
-    use Vista\Landing;
-    use Vista\Plantilla\Plantilla;
-    use App\Router;
+
+    require __DIR__."/vendor/autoload.php";
+
+    use App\Controlador\PersonaControlador;
+    use App\Servicios\ParqueBolas;
+    use App\Vista\Landing;
+    //$mongodb = new Modelo\Personas\PersonasDAOMongoDB();
+    $persona = new Persona('44111222A', "Alba","Garcia Garcia");
+    //$persona = new Persona( '44111444A', 'Inmaculada', "Climent Villaescusa");
+    //$mongodb->guardarPersona($persona);
+    //$mongodb->modificarPersona($persona);
+
+    //$mongodb->obtenerTodasLasPersonas();
+    /*echo "<pre>";
+    echo json_encode($mongodb->obtenerPersonasConLimite(0,2),JSON_PRETTY_PRINT);
+    echo "<pre>";*/
+    //$mongodb->obtenerPersona('44111222A');
+    //$mongodb->borrarPersonaPorDNI('44111222A');
+
+//    $modelo = new ParqueBolasModelo();
+//    $pb = new ParqueBolas(new \DateTime('now'),3,array(), 5.50);
+//    $modelo->insertarParqueBolas($pb);
+
+
+
+
+
+
 
 
     $router = new Router();
     $router->get("get",'/',[Landing::class,"mostrarPagina"]);
+    $router->get("get",'/pistas',[PistaControlador::class,"mostrarPistas"]);
     $router->get('get','/persona/login',[PersonaControlador::class,"index"]);
     $router->get("get",'/api/personas',[PersonaControlador::class,"apiPersonas"]);
-    $router->get('get','/api/persona',[PersonaControlador::class,'mostrarPersona']);
-    $router->post('post','/api/persona',[PersonaControlador::class,"create"]);
-    $router->delete("delete",'/api/persona',[PersonaControlador::class,"borrar"]);
-    $router->put("put",'/api/persona',[PersonaControlador::class,"actualizar"]);
+    $router->get('get','/api/personas',[PersonaControlador::class,'mostrarPersona']);
+    $router->post('post','/api/personas',[PersonaControlador::class,"create"]);
+    $router->delete("delete",'/api/personas',[PersonaControlador::class,"borrar"]);
+    $router->put("put",'/api/personas',[PersonaControlador::class,"actualizar"]);
+    $router->put('get','/api/parquebolas',[ParqueBolasControlador::class,"index"]);
+    $router->put('post','/api/parquebolas',[ParqueBolasControlador::class,"store"]);
+    $router->put('delete','/api/parquebolas',[ParqueBolasControlador::class,"delete"]);
+    $router->put('get','/parquebolas',[ParqueBolasControlador::class,"mostrar"]);
+
+
+
+
 
     $router->get("get",'/pista',function(){
         echo "Estás en pista";
     });
 
-   echo  $router->resolver($_SERVER['REQUEST_URI'],$_SERVER['REQUEST_METHOD']);
+     $router->resolver($_SERVER['REQUEST_URI'],$_SERVER['REQUEST_METHOD']);
 
 
 

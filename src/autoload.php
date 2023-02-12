@@ -1,6 +1,8 @@
 <?php
 
-spl_autoload_register(function ($class) {
+require __DIR__."vendor/autoload.php";
+
+/*spl_autoload_register(function ($class) {
     $fichero = __DIR__."/".$class . ".php";
     $fichero = str_replace("\\", "/", $fichero);
 //    echo "<br>" . $fichero;
@@ -8,4 +10,4 @@ spl_autoload_register(function ($class) {
         require_once($fichero);
     }
 }
-);
+);*/

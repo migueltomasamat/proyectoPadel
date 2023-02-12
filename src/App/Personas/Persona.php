@@ -2,7 +2,8 @@
 
 namespace App\Personas;
 
-require_once __DIR__."/../../autoload.php";
+use App\Log\LogFactory;
+use Monolog\Logger;
 
 class Persona implements \JsonSerializable
 {
@@ -11,11 +12,16 @@ class Persona implements \JsonSerializable
     private string $apellidos;
     private ?string $telefono;
 
+    private Logger $log;
+
     public function __construct(string $dni, string $nombre="Sin nombre", string $apellidos="Sin apellidos", string $telefono=''){
         $this->dni=$dni;
         $this->nombre=$nombre;
         $this->apellidos=$apellidos;
         $this->telefono=$telefono;
+
+        $this->log= LogFactory::getLogger();
+        $this->log->debug("Se ha creado la persona: \n".$this->__toString());
     }
 
     public function setDNI(string $dni):Persona{
@@ -108,5 +114,18 @@ class Persona implements \JsonSerializable
             "apellidos" => $this->apellidos,
             "telefono" => $this->telefono
         ];
+    }
+
+    public function __toString(): string
+    {
+        return
+        "dni: ".$this->dni.
+        " - nombre: ".$this->nombre.
+        " - apellidos: ". $this->apellidos.
+        " - telefono: ". $this->telefono;
+    }
+
+    public function _de_creacion_una_persona()
+    {
     }
 }

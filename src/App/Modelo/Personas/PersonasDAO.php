@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Modelo\Personas;
+
+
+abstract class PersonasDAO implements interfazPersonas
+{
+    private $conexion;
+
+
+    public function getConexion()
+    {
+        return $this->conexion;
+    }
+
+
+    public function setConexion($conexion): void
+    {
+        $this->conexion = $conexion;
+    }
+
+
+}

@@ -2,7 +2,6 @@
 
 namespace App\Personas;
 
-require_once __DIR__."/../../autoload.php";
 use App\Horarios\HorarioMensual;
 
 class Empleado extends Persona
@@ -145,14 +144,7 @@ class Empleado extends Persona
         return $this->salario;
     }
     public function calcularSalario():float{
-
-
-
         $this->salario=1*$this->precioPorHora;
         return $this->salario;
     }
-
-
-
-
 }
