@@ -53,7 +53,7 @@ class ParqueBolasControlador
         ];
         $parqueBolas = new ParqueBolas(\DateTime::createFromFormat("Y-m-d H:i:s",'2024-05-05 09:00:00'),4,$clientes,4);
 
-        $totalCoste = $parqueBolas->getCosteHora()*$parqueBolas->getCosteHora();
+        $totalCoste = $parqueBolas->getCosteHora()*$parqueBolas->getNumHoras();
 
         foreach ($parqueBolas->getClientes() as $arrayCliente){
             $arrayResultado[]=[$arrayCliente[0],($totalCoste*($arrayCliente[1]/100))];
